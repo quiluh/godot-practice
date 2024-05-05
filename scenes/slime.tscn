@@ -1,0 +1,65 @@
+[gd_scene load_steps=10 format=3 uid="uid://bpt3g1w14qq77"]
+
+[ext_resource type="Texture2D" uid="uid://cgf6j83sn51xc" path="res://assets/sprites/slime_green.png" id="1_ddycu"]
+[ext_resource type="Script" path="res://scenes/slime.gd" id="1_eu4iu"]
+[ext_resource type="PackedScene" uid="uid://bm7gfypxqbe8g" path="res://scenes/kill_zone.tscn" id="2_4q0fb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n3ag2"]
+atlas = ExtResource("1_ddycu")
+region = Rect2(0, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3gn4o"]
+atlas = ExtResource("1_ddycu")
+region = Rect2(24, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vm61q"]
+atlas = ExtResource("1_ddycu")
+region = Rect2(48, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_71xla"]
+atlas = ExtResource("1_ddycu")
+region = Rect2(72, 24, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_817rm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n3ag2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3gn4o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vm61q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_71xla")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h54x4"]
+size = Vector2(14, 15)
+
+[node name="Slime" type="Node2D"]
+script = ExtResource("1_eu4iu")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_817rm")
+autoplay = "default"
+frame = 2
+frame_progress = 0.206769
+
+[node name="KillZone" parent="." instance=ExtResource("2_4q0fb")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KillZone"]
+position = Vector2(0, 4.5)
+shape = SubResource("RectangleShape2D_h54x4")
+
+[node name="raycastRight" type="RayCast2D" parent="."]
+target_position = Vector2(12, 0)
+
+[node name="raycastLeft" type="RayCast2D" parent="."]
+target_position = Vector2(-12, 0)
